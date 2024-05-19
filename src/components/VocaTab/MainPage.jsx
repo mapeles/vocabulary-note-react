@@ -116,8 +116,13 @@ function AppendNote() {
   const navigate = useNavigate();
   const [name, setName] = useState('')
   const append = () => {
-    NoteAppend(v4(),name)
-    navigate('/selectNote')
+    if (name == ''){
+      alert('단어장의 이름을 입력하세요')
+    }
+    else{
+      NoteAppend(v4(),name)
+      navigate('/selectNote')
+    }
   }
   return(
     <div>
