@@ -33,7 +33,7 @@ function Append(props) {
         </div>
     )   
 }
-const WordInput = styled.input`
+export const WordInput = styled.input`
     width: 43vh;
     background-color: #2b2b2b;
     color: white;
