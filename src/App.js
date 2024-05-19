@@ -5,9 +5,9 @@ import Voca from './components/VocaTab/MainPage';
 function App() {
   return (
     <Main>
-      <MainContent>
+      <MainContentBorder>
         <Voca/>
-      </MainContent>
+      </MainContentBorder>
     </Main>
   );
 }
@@ -23,7 +23,7 @@ const Main = styled.div`
   align-items: center;
 
 `
-const MainContent = styled.div`
+const MainContentBorder = styled.div`
   background-color: #131414;
   width: 53.4375vh;
   height: 95vh;

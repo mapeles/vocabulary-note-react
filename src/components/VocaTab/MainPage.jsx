@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
 import TitleName from "../ui/Title"
-import VocaElement from "./VocaElement"
+import VocaElement, { Detail, Word, WordText } from "./VocaElement"
 import Top from "../ui/Top"
 import Append from "./Append"
-
+import {BrowserRouter, Routes, Route } from "react-router-dom"; 
+import { Link, useNavigate } from 'react-router-dom';
 const WordDB = {
   "66736108-c769-42da-b0c6-64ef05e7b34f":{
     VocaName: "첫번째 단어장",
@@ -51,22 +52,27 @@ export function WordAppend(id, word, mean, pron, desc){
 function Voca() {
   const [onAppend, setOnAppend] = useState(false)
     return(
-      <div>
-        {onAppend ? <Append toAppend={() => setOnAppend(false)} />: <PageDetail toAppend={() => setOnAppend(true)}/> }
-      </div>
+      <BrowserRouter>      
+        <Routes>
+          <Route path="/" element = {<PageDetail/>}/>
+          <Route path="/append" element = {<Append/>}/>
+          <Route path="/selectNote" element = {<SelectNote/>}/>
+        </Routes>    
+    </BrowserRouter>
     )
 }
 function PageDetail(props){
+  const navigate = useNavigate();
   return(
     <div>
         <Top>
             <TitleName>단어장</TitleName>
-            <p onClick={props.toAppend}>추가</p>
+            <p onClick={() => navigate('/append')}>추가 </p>
         </Top>
         <div style={{color:"white", display:"flex", justifyContent: "space-between", flexDirection: "row"}}>
             <p style={{margin:"0px"}}>선택한 단어장</p>
             <div style={{ display :"flex",flexDirection:"column", justifyContent: "center"}}>
-              <p style={{ margin: "0px",color:"grey", fontSize: "12px"}}>{WordDB[currentVoca].VocaName}</p>
+              <p style={{ margin: "0px",color:"grey", fontSize: "12px"}} onClick={() => navigate('/selectNote')}>{'> '}{WordDB[currentVoca].VocaName}</p>
             </div>
         </div>
         <Scrollable>
@@ -78,7 +84,36 @@ function PageDetail(props){
       </div>
   )
 }
-
+function SelectNote(){
+  const navigate = useNavigate();
+  return(
+    <div style={{width :'45vh'}}>
+      <div style={{color: 'white', display:'flex', flexDirection:'row'}}>
+          <TitleName onClick={() => navigate('/')}>⬅️</TitleName>
+            <div style={{width : '10px'}}></div>
+          <TitleName>단어장 선택하기</TitleName>
+      </div>
+      {Object.keys(WordDB).map(key => (
+            <NoteElement noteName={WordDB[key].VocaName} keyValue={key}/>
+          ))}
+    </div>
+  )
+}
+function NoteElement(props){
+  const navigate = useNavigate();
+  const key = props.keyValue
+  const clicked = () => {
+    currentVoca = key
+    navigate('/')
+  }
+  return(
+    <Word onClick={clicked}>
+      <Detail>
+        <WordText>{props.noteName}</WordText>
+      </Detail>
+    </Word>
+  )
+}
 const Scrollable = styled.div`
   overflow-y: scroll;
   height: 80vh;

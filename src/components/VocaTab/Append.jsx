@@ -4,18 +4,20 @@ import TitleName from "../ui/Title";
 import styled from "styled-components";
 import { v4 } from "uuid";
 import { WordAppend } from "./MainPage";
+import { useNavigate } from "react-router-dom";
 function Append(props) {
     const [word,setWord] = useState('')
     const [mean,setMean] = useState('')
     const [desc,setDesc] = useState('')
     const [pron,setPron] = useState('')
+    const navigate = useNavigate();
     useEffect(() => (
         console.log(word,mean,desc,pron)
     ),[word,mean,desc,pron])
     return(
         <div style={{width :'45vh'}}>
             <Top>
-                <TitleName onClick={props.toAppend}>⬅️</TitleName>
+                <TitleName onClick={() => navigate('/')}>⬅️</TitleName>
                 <p onClick={() => {
                     WordAppend(v4(),word,mean,pron,desc)
                     setDesc('')

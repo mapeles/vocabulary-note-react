@@ -20,10 +20,10 @@ function WordDetail(props) {
     )
 }
 
-const WordText = styled.h1`
+export const WordText = styled.h1`
   font-size: 24px;
 `
-const Detail = styled.div`
+export const Detail = styled.div`
   color: white;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@ const Detail = styled.div`
 
   padding-left: 20px;
 `
-const Word = styled.div`
+export const Word = styled.div`
   background-color: #2B2B2B;
   width: 45vh;
   border-radius: 10px;
