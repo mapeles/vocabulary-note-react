@@ -13,15 +13,18 @@ const WordDB = {
     contents: {
       "1a687a1f-25c1-4fbd-9624-f259d0a784c9":{
         word: 'apple',
-        mean: '사과'
+        mean: '사과',
+        score: '100'
       },
       "8d43c6ed-e1ca-4486-a087-267876737a53":{
         word: 'banana',
-        mean: '바나나'
+        mean: '바나나',
+        score: '50'
       },
       "c44a1c0c-3a10-4ed4-996b-086e1475d4f8":{
         word: 'cocoa',
-        mean: 'test'
+        mean: 'test',
+        score: '0'
       },
     }
   },
@@ -30,11 +33,13 @@ const WordDB = {
     contents: {
       "822dac2b-ad93-45ea-b6ca-cd7e860b7b35":{
         word: 'test',
-        mean: 'test'
+        mean: 'test',
+        score: '0'
       },
       "c44a1c0c-3a10-4ed4-9962-086e1475d4f8":{
         word: 'pneumoconiosis',
-        mean: '진폐증'
+        mean: '진폐증',
+        score: '0'
       }
     }
   }
@@ -45,7 +50,8 @@ export function WordAppend(id, word, mean, pron, desc){
       word : word,
       mean : mean,
       pron : pron,
-      desc : desc
+      desc : desc,
+      score: 0
   }
   console.log(WordDB)
   console.log(WordDB[currentVoca].contents[id])
@@ -85,7 +91,7 @@ function PageDetail(props){
         </div>
         <Scrollable>
           {Object.keys(WordDB[currentVoca].contents).map(key => (
-            <VocaElement word={WordDB[currentVoca].contents[key].word} mean={WordDB[currentVoca].contents[key].mean}/>
+            <VocaElement word={WordDB[currentVoca].contents[key].word} mean={WordDB[currentVoca].contents[key].mean} score={WordDB[currentVoca].contents[key].score}/>
           ))}
         </Scrollable>
         
