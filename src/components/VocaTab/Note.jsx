@@ -1,21 +1,11 @@
 import TitleName from "../ui/Title";
 import { useNavigate } from 'react-router-dom';
 import { WordDB } from "./MainPage";
-import { NoteElement } from "./Note";
 import { useState } from "react";
-import { useState } from "react";
-import { v4 } from "uuid";
-import { v4 } from "uuid";
-import TitleName from "../ui/Title";
-import TitleName from "../ui/Title";
 import Top from "../ui/Top";
-import Top from "../ui/Top";
-import { WordInput } from "./Append";
 import { WordInput } from "./Append";
 import { NoteAppend } from "./MainPage";
-import { useState } from "react";
-import { v4 } from "uuid";
-import { WordInput } from "./Append";
+import { v4 } from "uuid";;
 import { currentVoca } from "./MainPage";
 import { Word, Detail, WordText } from "./VocaElement";
 

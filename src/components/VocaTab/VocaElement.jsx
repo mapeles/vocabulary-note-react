@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
+import { ChangeScore } from "./MainPage";
 
 function VocaElement(props) {
     const {word,mean,score,id} = props
@@ -9,7 +10,9 @@ function VocaElement(props) {
         <Word>
             <WordDetail word={word} mean={mean} />
             <div style={{height:'10vh', width: '8vh', display:"flex", alignItems:'center', flexDirection:"column", justifyContent: "space-around", margin:"5px"}}>
-              <VocaDegree scorePoint={score}/>
+              <div onClick={() => ChangeScore(id)}>
+                <VocaDegree scorePoint={score}/>
+              </div>
               <div style={{color:'white'}} onClick={() => navigate("edit/", {state:id})}>
                 ✐
               </div>
@@ -35,9 +38,9 @@ function VocaDegree(props){
   return(
     <VocaDegreeDetail score={score}>
       {
-        (score > 60)? 
+        (score >= 60)? 
           '외움' : 
-        (score > 30)? 
+        (score >= 30)? 
           '애매' :
           '모름'
         

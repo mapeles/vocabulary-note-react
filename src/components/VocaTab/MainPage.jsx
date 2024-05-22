@@ -16,17 +16,17 @@ export const WordDB = {
       "1a687a1f-25c1-4fbd-9624-f259d0a784c9":{
         word: 'apple',
         mean: '사과',
-        score: '100'
+        score: 100
       },
       "8d43c6ed-e1ca-4486-a087-267876737a53":{
         word: 'banana',
         mean: '바나나',
-        score: '50'
+        score: 50
       },
       "c44a1c0c-3a10-4ed4-996b-086e1475d4f8":{
         word: 'cocoa',
         mean: 'test',
-        score: '0'
+        score: 0
       },
     }
   },
@@ -36,12 +36,12 @@ export const WordDB = {
       "822dac2b-ad93-45ea-b6ca-cd7e860b7b35":{
         word: 'test',
         mean: 'test',
-        score: '0'
+        score: 0
       },
       "c44a1c0c-3a10-4ed4-9962-086e1475d4f8":{
         word: 'pneumoconiosis',
         mean: '진폐증',
-        score: '0'
+        score: 0
       }
     }
   }
@@ -49,6 +49,19 @@ export const WordDB = {
 export function getWord(id){
   const a = WordDB[currentVoca].contents[id]
   return a
+}
+export function ChangeScore(id){
+  const score = WordDB[currentVoca].contents[id].score
+  if (score>=60){
+    WordDB[currentVoca].contents[id].score = 0
+  }
+  else if (score>=30){
+    WordDB[currentVoca].contents[id].score = 60
+  }
+  else{
+    WordDB[currentVoca].contents[id].score = 30
+  }
+  console.log(WordDB[currentVoca].contents[id].score)
 }
 export let currentVoca = Object.keys(WordDB)[0]
 export function WordAppend(id, word, mean, pron, desc,score){
