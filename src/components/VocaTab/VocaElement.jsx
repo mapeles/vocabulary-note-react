@@ -1,14 +1,16 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 
 function VocaElement(props) {
-    const {word,mean,score} = props
+    const {word,mean,score,id} = props
+    const navigate = useNavigate();
     return(
         <Word>
             <WordDetail word={word} mean={mean} />
             <div style={{height:'10vh', width: '8vh', display:"flex", alignItems:'center', flexDirection:"column", justifyContent: "space-around", margin:"5px"}}>
               <VocaDegree scorePoint={score}/>
-              <div style={{color:'white'}}>
+              <div style={{color:'white'}} onClick={() => navigate("edit/", {state:id})}>
                 ✐
               </div>
             </div>

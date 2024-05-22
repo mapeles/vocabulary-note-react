@@ -7,6 +7,7 @@ import Append, { WordInput } from "./Append"
 import {BrowserRouter, Routes, Route } from "react-router-dom"; 
 import { Link, useNavigate } from 'react-router-dom';
 import { v4 } from "uuid"
+import Edit from "./edit"
 const WordDB = {
   "66736108-c769-42da-b0c6-64ef05e7b34f":{
     VocaName: "첫번째 단어장",
@@ -44,14 +45,18 @@ const WordDB = {
     }
   }
 }
+export function getWord(id){
+  const a = WordDB[currentVoca].contents[id]
+  return a
+}
 let currentVoca = Object.keys(WordDB)[0]
-export function WordAppend(id, word, mean, pron, desc){
+export function WordAppend(id, word, mean, pron, desc,score){
     WordDB[currentVoca].contents[id] = {
       word : word,
       mean : mean,
       pron : pron,
       desc : desc,
-      score: 0
+      score: score
   }
   console.log(WordDB)
   console.log(WordDB[currentVoca].contents[id])
@@ -71,6 +76,7 @@ function Voca() {
           <Route path="/append" element = {<Append/>}/>
           <Route path="/selectNote" element = {<SelectNote/>}/>
           <Route path="/appendNote" element = {<AppendNote/>}/>
+          <Route path="/edit" element = {<Edit/>}/>
         </Routes>    
     </BrowserRouter>
     )
@@ -81,7 +87,7 @@ function PageDetail(props){
     <div style={{width :'45vh'}}>
         <Top>
             <TitleName>단어장</TitleName>
-            <p onClick={() => navigate('/append')}>추가 </p>
+            <p onClick={() => navigate('/append')} style={{fontSize:'30px',fontWeight:'800',margin:'0px'}}>+</p>
         </Top>
         <div style={{color:"white", display:"flex", justifyContent: "space-between", flexDirection: "row"}}>
             <p style={{margin:"0px"}}>선택한 단어장</p>
@@ -91,7 +97,12 @@ function PageDetail(props){
         </div>
         <Scrollable>
           {Object.keys(WordDB[currentVoca].contents).map(key => (
-            <VocaElement word={WordDB[currentVoca].contents[key].word} mean={WordDB[currentVoca].contents[key].mean} score={WordDB[currentVoca].contents[key].score}/>
+            <VocaElement 
+              word={WordDB[currentVoca].contents[key].word} 
+              mean={WordDB[currentVoca].contents[key].mean} 
+              score={WordDB[currentVoca].contents[key].score}
+              id={key}
+            />
           ))}
         </Scrollable>
         
@@ -109,7 +120,7 @@ function SelectNote(){
             <TitleName>단어장 선택하기</TitleName>
         </div>
         <div style={{color:"white", display: "flex", flexDirection: "column", justifyContent: "center"}}>
-          <p onClick={() => navigate('/appendNote')}>추가하기</p>
+          <p onClick={() => navigate('/appendNote')}>추가</p>
         </div>
       </div>
       {Object.keys(WordDB).map(key => (
@@ -133,7 +144,7 @@ function AppendNote() {
   return(
     <div>
       <Top>
-        <TitleName onClick={() => navigate('/')}>⬅️</TitleName>
+        <TitleName onClick={() => navigate('/')}>⬅</TitleName>
         <p onClick={append}>저장하기</p>
       </Top>
       <WordInput value={name} onChange={(e) => setName(e.target.value)} placeholder="단어장의 이름를 입력하세요"/>

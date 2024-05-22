@@ -3,13 +3,18 @@ import Top from "../ui/Top";
 import TitleName from "../ui/Title";
 import styled from "styled-components";
 import { v4 } from "uuid";
-import { WordAppend } from "./MainPage";
-import { useNavigate } from "react-router-dom";
-function Append(props) {
-    const [word,setWord] = useState('')
-    const [mean,setMean] = useState('')
-    const [desc,setDesc] = useState('')
-    const [pron,setPron] = useState('')
+import { WordAppend, getWord } from "./MainPage";
+import { useLocation, useNavigate } from "react-router-dom";
+function Edit(props) {
+    const location = useLocation()
+    const id = location.state
+
+    const voca = getWord(id)
+    console.log(voca)
+    const [word,setWord] = useState(voca.word)
+    const [mean,setMean] = useState(voca.mean)
+    const [desc,setDesc] = useState(voca.desc)
+    const [pron,setPron] = useState(voca.pron)
     const navigate = useNavigate();
     useEffect(() => (
         console.log(word,mean,desc,pron)
@@ -19,18 +24,15 @@ function Append(props) {
             alert('단어와 뜻을 입력하세요')
         }
         else {
-            WordAppend(v4(),word,mean,pron,desc)
-            setDesc('')
-            setMean('')
-            setPron('')
-            setWord('')
+            WordAppend(id,word,mean,pron,desc,voca.score)
+            navigate('/')
         }
     }
     return(
         <div style={{width :'45vh'}}>
             <Top>
                 <TitleName onClick={() => navigate('/')}>⬅️</TitleName>
-                <p onClick={append}>추가</p>
+                <p onClick={append}>저장</p>
             </Top>
             <WordInput value={word} onChange={(e) => setWord(e.target.value)} placeholder="단어를 입력하세요"/>
             <WordInput value={mean} onChange={(e) => setMean(e.target.value)} placeholder="뜻을 입력하세요"/>
@@ -52,4 +54,4 @@ export const WordInput = styled.input`
     margin-bottom: 2vh;
 `
 
-export default Append
+export default Edit
