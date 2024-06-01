@@ -60,6 +60,7 @@ const VocaDegreeDetail = styled.div`
   text-align: center;
   border: 0px;
   border-radius: 5px;
+  padding: 1px 0px;
 `
 export const WordText = styled.h1`
   font-size: 24px;

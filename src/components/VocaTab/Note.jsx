@@ -1,13 +1,13 @@
 import TitleName from "../ui/Title";
 import { useNavigate } from 'react-router-dom';
-import { WordDB } from "./MainPage";
+import { WordDB, setNote } from "./MainPage";
 import { useState } from "react";
 import Top from "../ui/Top";
 import { WordInput } from "./Append";
 import { NoteAppend } from "./MainPage";
-import { v4 } from "uuid";;
+import { v4 } from "uuid";
 import { currentVoca } from "./MainPage";
-import { Word, Detail, WordText } from "./VocaElement";
+import { Word, Detail, WordText } from "./VocaElement";;
 
 export function SelectNote() {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export function AppendNote() {
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const append = () => {
-    if (name == '') {
+    if (name === '') {
       alert('단어장의 이름을 입력하세요')
     }
     else {
@@ -55,7 +55,7 @@ export function NoteElement(props) {
   const navigate = useNavigate()
   const key = props.keyValue
   const clicked = () => {
-    currentVoca = key
+    setNote(key)
     navigate('/')
   }
   return (

@@ -64,6 +64,9 @@ export function ChangeScore(id){
   console.log(WordDB[currentVoca].contents[id].score)
 }
 export let currentVoca = Object.keys(WordDB)[0]
+export function setNote(id){
+  currentVoca = id
+}
 export function WordAppend(id, word, mean, pron, desc,score){
     WordDB[currentVoca].contents[id] = {
       word : word,
