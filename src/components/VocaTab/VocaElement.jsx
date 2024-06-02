@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
-import { ChangeScore } from "./MainPage";
+import { ChangeScore, WordDB, currentVoca } from "./MainPage";
 
 function VocaElement(props) {
     const {word,mean,score,id} = props
@@ -10,9 +10,7 @@ function VocaElement(props) {
         <Word>
             <WordDetail word={word} mean={mean} />
             <div style={{height:'10vh', width: '8vh', display:"flex", alignItems:'center', flexDirection:"column", justifyContent: "space-around", margin:"5px"}}>
-              <div onClick={() => ChangeScore(id)}>
-                <VocaDegree scorePoint={score}/>
-              </div>
+                <VocaDegree scorePoint={score} id={id}/>
               <div style={{color:'white'}} onClick={() => navigate("edit/", {state:id})}>
                 ✐
               </div>
@@ -34,25 +32,32 @@ function WordDetail(props) {
     )
 }
 function VocaDegree(props){
-  const score = props.scorePoint
+  const [score, setScore] = useState(props.scorePoint)
+  const Change = () => {
+    ChangeScore(props.id)
+    setScore(WordDB[currentVoca].contents[props.id].score)
+
+  }
   return(
-    <VocaDegreeDetail score={score}>
-      {
-        (score >= 60)? 
-          '외움' : 
-        (score >= 30)? 
-          '애매' :
-          '모름'
-        
-      }
-    </VocaDegreeDetail>
+    <div onClick={Change}>
+        <VocaDegreeDetail score={score}>
+        {
+          (score >= 60)? 
+            '외움' : 
+          (score >= 30)? 
+            '애매' :
+            '모름'
+          
+        }
+      </VocaDegreeDetail>
+    </div>
   )
 }
 const VocaDegreeDetail = styled.div`
   background-color: ${(props) => (
-    props.score > 60?
+    props.score >= 60?
      `green` : 
-     props.score > 30?
+     props.score >= 30?
     'orange':
     'grey')};
   font-size: 10px;
