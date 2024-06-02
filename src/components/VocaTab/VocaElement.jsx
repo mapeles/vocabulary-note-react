@@ -22,7 +22,7 @@ function VocaElement(props) {
 function WordDetail(props) {
     const [display,setDisplay] = useState(false)
     return(
-      <div style={{flex: '1 0 auto'}}>
+      <div style={{flex: '1 0 auto', width: '25vh'}}>
         <Detail onClick={() => setDisplay(!display)}>
           <WordText>{props.word}</WordText>
           {display ? <p>{props.mean}</p> : null}

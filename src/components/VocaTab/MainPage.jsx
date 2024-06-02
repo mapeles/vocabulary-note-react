@@ -78,6 +78,9 @@ export function WordAppend(id, word, mean, pron, desc,score){
   console.log(WordDB)
   console.log(WordDB[currentVoca].contents[id])
 }
+export function DeleteWord(id){
+  delete WordDB[currentVoca].contents[id]
+}
 export function NoteAppend(id, name){
   WordDB[id] = {
     VocaName: name,

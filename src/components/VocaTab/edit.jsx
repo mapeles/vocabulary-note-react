@@ -3,7 +3,7 @@ import Top from "../ui/Top";
 import TitleName from "../ui/Title";
 import styled from "styled-components";
 import { v4 } from "uuid";
-import { WordAppend, getWord } from "./MainPage";
+import { DeleteWord, WordAppend, getWord } from "./MainPage";
 import { useLocation, useNavigate } from "react-router-dom";
 function Edit(props) {
     const location = useLocation()
@@ -28,11 +28,18 @@ function Edit(props) {
             navigate('/')
         }
     }
+    const Delete = () => {
+        DeleteWord(id)
+        navigate('/')
+    }
     return(
         <div style={{width :'45vh'}}>
             <Top>
                 <TitleName onClick={() => navigate('/')}>⬅️</TitleName>
-                <p onClick={append}>저장</p>
+                <div style={{display:'flex', flexDirection: 'row', justifyContent:'space-between', width:'10vh'}}>
+                    <p onClick={Delete}>삭제</p>
+                    <p onClick={append}>저장</p>
+                </div>
             </Top>
             <WordInput value={word} onChange={(e) => setWord(e.target.value)} placeholder="단어를 입력하세요"/>
             <WordInput value={mean} onChange={(e) => setMean(e.target.value)} placeholder="뜻을 입력하세요"/>
