@@ -89,15 +89,16 @@ export function NoteAppend(id, name){
 }
 function Voca() {
     return(
-      <BrowserRouter>      
-        <Routes>
-          <Route path="/" element = {<PageDetail/>}/>
-          <Route path="/append" element = {<Append/>}/>
-          <Route path="/selectNote" element = {<SelectNote/>}/>
-          <Route path="/appendNote" element = {<AppendNote/>}/>
-          <Route path="/edit" element = {<Edit/>}/>
-        </Routes>    
-    </BrowserRouter>
+      <div style={{height:'100%'}}>     
+          <Routes>
+            <Route path="/" element = {<PageDetail/>}/>
+            <Route path="/append" element = {<Append/>}/>
+            <Route path="/selectNote" element = {<SelectNote/>}/>
+            <Route path="/appendNote" element = {<AppendNote/>}/>
+            <Route path="/edit" element = {<Edit/>}/>
+          </Routes>    
+      </div>
+      
     )
 }
 function PageDetail(props){
@@ -128,9 +129,10 @@ function PageDetail(props){
       </div>
   )
 }
-const Scrollable = styled.div`
+export const Scrollable = styled.div`
   overflow-y: scroll;
-  height: 80vh;
+  margin-top: 10px;
+  height: 73vh;
   &::-webkit-scrollbar{
     display:none;
   }

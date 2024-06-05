@@ -1,6 +1,6 @@
 import TitleName from "../ui/Title";
 import { useNavigate } from 'react-router-dom';
-import { WordDB, setNote } from "./MainPage";
+import { Scrollable, WordDB, setNote } from "./MainPage";
 import { useState } from "react";
 import Top from "../ui/Top";
 import { WordInput } from "./Append";
@@ -23,9 +23,11 @@ export function SelectNote() {
           <p onClick={() => navigate('/appendNote')}>추가</p>
         </div>
       </div>
-      {Object.keys(WordDB).map(key => (
-        <NoteElement noteName={WordDB[key].VocaName} keyValue={key} />
-      ))}
+      <Scrollable>
+        {Object.keys(WordDB).map(key => (
+          <NoteElement noteName={WordDB[key].VocaName} keyValue={key} />
+        ))}
+      </Scrollable>
     </div>
   );
 }
@@ -51,6 +53,7 @@ export function AppendNote() {
     </div>
   )
 }
+
 export function NoteElement(props) {
   const navigate = useNavigate()
   const key = props.keyValue

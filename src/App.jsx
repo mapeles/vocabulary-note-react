@@ -1,12 +1,21 @@
 import { useState } from 'react';
 import styled from 'styled-components'
 import Voca from './components/VocaTab/MainPage';
+import { BottomTab } from './components/ui/bottomTab';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { SentencePage } from './components/SentenceTab/SentencePage';
 
 function App() {
   return (
     <Main>
       <MainContentBorder>
-        <Voca/>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/*" element={<Voca/>}/>
+            <Route path="/Sentence/*" element={<SentencePage/>}/>
+          </Routes>
+          <BottomTab/>
+        </BrowserRouter> 
       </MainContentBorder>
     </Main>
   );
@@ -25,10 +34,11 @@ const Main = styled.div`
 `
 const MainContentBorder = styled.div`
   background-color: #131414;
-  width: 53.4375vh;
+  width: 45vh;
   height: 95vh;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 
 `
 export default App;
