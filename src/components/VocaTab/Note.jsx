@@ -14,7 +14,7 @@ export function SelectNote() {
   return (
     <div style={{ width: '45vh' }}>
       <div style={{ color: "white", display: "flex", flexDirection: 'row', justifyContent: "space-between" }}>
-        <div style={{ color: 'white', display: 'flex', flexDirection: 'row' }}>
+        <div style={{ color: 'white', display: 'flex', flexDirection: 'row', marginTop: '1vh' }}>
           <TitleName onClick={() => navigate('/')}>⬅️</TitleName>
           <div style={{ width: '10px' }}></div>
           <TitleName>단어장 선택하기</TitleName>

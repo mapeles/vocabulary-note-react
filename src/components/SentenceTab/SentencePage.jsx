@@ -13,15 +13,17 @@ const SentenceDB={
     }
 }
 function SentenceElement(props) {
+    const keyValue = props.keyValue
     return (
-        <Word>
-          <Detail>
-            <WordText>{props.SentenceName}</WordText>
-          </Detail>
-        </Word>
+        <div onClick={() => {}}>
+            <Word>
+                <Detail>
+                    <WordText>{props.SentenceName}</WordText>
+                </Detail>
+            </Word>
+        </div>
       )
 }
-
 export function SentencePage(){
     return(
         <div style={{height:'100%'}}>
