@@ -3,16 +3,25 @@ import TitleName from "../ui/Title";
 import Top from "../ui/Top";
 import { Detail, Word, WordText } from "../VocaTab/VocaElement";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { v4 } from "uuid";
+import { WordInput } from "../VocaTab/Append";
 
 const SentenceDB={
     "66736108-c769-42da-b0c6-64ef05e7b34f":{
         SentenceName:"테스트용 문장",
         contents:{
             Sentence:["이것은","테스트용","문장입니다.","리엑트"],
-            blind:[true,false,false,true]
         }
     }
+}
+export function AppendSentence(id, sentenceName, sentence){
+    SentenceDB[id] = {
+      SentenceName:sentenceName,
+      contents:{
+        Sentence:sentence
+      }
+  }
 }
 function WordElementComp(props){
     const [blind, setBlind] = useState(props.blind)
@@ -54,6 +63,7 @@ export function SentencePage(){
             <Routes>
                 <Route path="/" element={<Sentence/>}/>
                 <Route path="/Detail" element={<SentenceDetail/>}/>
+                <Route path="/Append" element={<AppendSentencePage/>}/>
             </Routes>
         </div>
     )
@@ -63,6 +73,10 @@ function SentenceDetail(){
     const id = location.state
     const navigate = useNavigate();
     console.log(SentenceDB[id].SentenceName)
+    let blind = [];
+    for (let i = 0; i < SentenceDB[id].contents.Sentence.length; i++) {
+    blind.push(true);
+    }
     return(
         <div style={{color:"white", marginTop:'1vh'}}>
             <Top>
@@ -72,13 +86,14 @@ function SentenceDetail(){
                 ✐
                 </div>
             </Top>
-            {Object.keys(SentenceDB[id].contents.blind).map(key => (
-                <div style={{display:"inline"}}>
-                    <WordElementComp blind={SentenceDB[id].contents.blind[key]} contents={SentenceDB[id].contents.Sentence[key]}/>
-                    <p style={{display:"inline",userSelect: 'none'}}> </p>
-                </div>
-            ))}
-
+            <div style={{lineHeight:"150%"}}>
+                {Object.keys(SentenceDB[id].contents.Sentence).map(key => (
+                    <div style={{display:"inline"}}>
+                        <WordElementComp blind={blind} contents={SentenceDB[id].contents.Sentence[key]}/>
+                        <p style={{display:"inline",userSelect: 'none'}}> </p>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }
@@ -88,7 +103,7 @@ function Sentence(){
         <div>
             <Top>
                 <TitleName>문장노트</TitleName>
-                <p onClick={() => {}} style={{fontSize:'30px',fontWeight:'800',margin:'0px'}}>+</p>
+                <p onClick={() => {navigate('/sentence/Append')}} style={{fontSize:'30px',fontWeight:'800',margin:'0px'}}>+</p>
             </Top>
             {Object.keys(SentenceDB).map(key => (
                 <SentenceElement SentenceName={SentenceDB[key].SentenceName} keyValue={key} />
@@ -96,3 +111,42 @@ function Sentence(){
         </div>
     )
 }
+
+function AppendSentencePage(){
+    const navigate = useNavigate();
+    const [sentence, setSentence] = useState('')
+    const [sentenceName, setSentenceName] = useState('')
+    const append = () => {
+        if (sentenceName == '' || sentence == ''){
+            alert('문장의 제목이나 내용을 입력하세요')
+        }
+        else {
+            AppendSentence(v4(),sentenceName,sentence.split(' '))
+            navigate('/sentence')
+            console.log(SentenceDB)
+        }
+    }
+    return(
+        <div>
+            <Top>
+                <TitleName>추가하기</TitleName>
+                <p onClick={append} >추가</p>
+            </Top>
+            <WordInput value={sentenceName} onChange={(e) => setSentenceName(e.target.value)} type="text" placeholder="문장의 이름을 입력하세요"/>
+            <TextInputArea value={sentence} onChange={(e) => setSentence(e.target.value)} rows="20" cols="39" placeholder="이곳에 글을 입력하세요"/>
+        </div>
+    )
+}
+export const TextInputArea = styled.textarea`
+    width: 43vh;
+    background-color: #2b2b2b;
+    color: white;
+    height: 50vh;
+    border-radius: 15px;
+    border: 0px;
+    padding: 3px;
+    padding-left: 10px;
+    font-size: 16px;
+    margin-bottom: 2vh;
+    padding-top: 10px;
+`
