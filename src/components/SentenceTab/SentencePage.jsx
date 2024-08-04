@@ -24,6 +24,9 @@ export function AppendSentence(id, sentenceName, sentence){
       }
   }
 }
+function DeleteSentence(id){
+    delete SentenceDB[id]
+} 
 /*
 
 채점기능에서 특수기호를 스킵하는거를 만드는게 나을듯?
@@ -167,6 +170,10 @@ function EditSentence(){
             console.log(SentenceDB)
         }
     }
+    const deletefun = () => {
+        DeleteSentence(id)
+        navigate('/sentence')
+    }
     return(
         <div>
             <Top>
@@ -175,8 +182,13 @@ function EditSentence(){
                     <p style={{padding:"5px"}}></p>
                     <TitleName>수정하기</TitleName>
                 </Top>
-                <p onClick={append} >수정</p>
-            </Top>
+                <Top>
+                    <p onClick={deletefun}>삭제</p>
+                    <p style={{padding:"5px"}}></p>
+                    <p onClick={append} >수정</p>
+                </Top>
+                </Top>
+                
             <WordInput value={sentenceName} onChange={(e) => setSentenceName(e.target.value)} type="text" placeholder="문장의 이름을 입력하세요"/>
             <TextInputArea value={sentence} onChange={(e) => setSentence(e.target.value)} rows="20" cols="39" placeholder="이곳에 글을 입력하세요"/>
         </div>
