@@ -29,8 +29,13 @@ function Edit(props) {
         }
     }
     const Delete = () => {
-        DeleteWord(id)
-        navigate('/')
+        // eslint-disable-next-line no-restricted-globals
+        const isDelete= confirm("단어을 삭제하시겠습니까?")
+        if (isDelete){
+            DeleteWord(id)
+            navigate('/')
+        }
+        
     }
     return(
         <div style={{width :'45vh'}}>
